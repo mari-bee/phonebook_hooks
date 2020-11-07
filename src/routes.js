@@ -48,4 +48,5 @@ export default routes;
 export const homeRoute = routes.find((route) => route.label === "Home");
 export const registerRoute = routes.find((route) => route.label === "Register");
 export const loginRoute = routes.find((route) => route.label === "Login");
+export const profileRoute = routes.find((route) => route.label === "Profile");
 export const contactsRoute = routes.find((route) => route.label === "Contacts");

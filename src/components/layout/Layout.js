@@ -15,8 +15,9 @@ import { contactsSelectors, contactsSlice } from "../../redux/contacts";
 import styles from "./Layout.module.css";
 
 const Layout = ({ children }) => {
-  const theme = localStorage.getItem("theme");
-  const [darkState, setDarkState] = useState(theme === "dark" ? true : false);
+  const initialTheme = localStorage.getItem("theme");
+  const isDark = initialTheme === "dark" ? true : false;
+  const [darkState, setDarkState] = useState(isDark);
   const palletType = darkState ? "dark" : "light";
   const mainPrimaryColor = darkState ? orange[500] : lightBlue[500];
   const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
@@ -31,10 +32,13 @@ const Layout = ({ children }) => {
       },
     },
   });
+  // console.log("darkTheme", darkTheme);
   const handleThemeChange = () => {
     setDarkState(!darkState);
-    localStorage.setItem("theme", darkState ? "dark" : "light");
   };
+  useEffect(() => {
+    localStorage.setItem("theme", darkState ? "dark" : "light");
+  }, [darkState]);
   // const authLoading = useSelector((state) => authSelectors.getLoading(state));
   const contactsLoading = useSelector((state) =>
     contactsSelectors.getLoading(state)

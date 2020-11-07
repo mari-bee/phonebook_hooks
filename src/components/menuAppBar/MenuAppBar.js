@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import Brightness4Icon from "@material-ui/icons/Brightness4";
-import Brightness5Icon from "@material-ui/icons/Brightness4";
+
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
+import Brightness5Icon from "@material-ui/icons/Brightness5";
 import Navigation from "../navigation/Navigation";
 import UserMenu from "../userMenu/UserMenu";
 import AuthNav from "../authNav/AuthNav";
-import { authSelectors } from "../../redux/auth";
+import { authSelectors, authOperations } from "../../redux/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,21 +28,19 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "35px",
     textAlign: "left",
   },
-  icons: {
+  icon: {
     fontSize: 40,
   },
 }));
 
 const MenuAppBar = ({ isDark, changeTheme }) => {
   const isAuth = useSelector((state) => authSelectors.isAuth(state));
-
+  const icon = isDark ? <Brightness5Icon /> : <Brightness4Icon />;
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  // const customProps = { className: classes.icons }; // {...customProps}
-  const icon = isDark ? <Brightness5Icon /> : <Brightness4Icon />;
-  // icon.props.className = classes.icons;
-  const customIcon = React.cloneElement(icon, { className: classes.icons });
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -65,39 +63,9 @@ const MenuAppBar = ({ isDark, changeTheme }) => {
             aria-label="mode"
             onClick={changeTheme}
           >
-            {customIcon}
+            <icon.type className={classes.icon} />
           </IconButton>
-          {isAuth && (
-            <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle className={classes.icons} />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
-              </Menu>
-            </div>
-          )}
+          {isAuth && <UserMenu />}
         </Toolbar>
       </AppBar>
     </div>
