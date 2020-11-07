@@ -26,6 +26,14 @@ const routes = [
     restricted: true,
   },
   {
+    path: "/profile",
+    label: "Profile",
+    exact: true,
+    component: lazy(() => import("./views/ProfileView/ProfileView.js")),
+    private: true,
+    restricted: false,
+  },
+  {
     path: "/contacts",
     label: "Contacts",
     exact: true,

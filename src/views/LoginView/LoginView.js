@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Avatar from "@material-ui/core/Avatar";
@@ -9,7 +9,6 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import withStyles from "@material-ui/core/styles/withStyles";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
@@ -55,10 +54,9 @@ const initialState = {
   password: "",
 };
 
-const LoginView = (props) => {
+const LoginView = () => {
   const loading = useSelector((state) => authSelectors.getLoading(state));
   const [state, setState] = useState(initialState);
-  // const [errors, setError] = useState(null);
   const { errors } = useForm();
 
   const dispatch = useDispatch();
@@ -76,12 +74,6 @@ const LoginView = (props) => {
   const { email, password } = state;
 
   const classes = useStyles();
-
-  // useEffect(() => {
-  //   if (props.UI.errors) {
-  //     setError(props.UI.errors);
-  //   }
-  // }, [props.UI.errors]);
 
   return (
     <Container component="main" maxWidth="xs">

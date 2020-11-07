@@ -1,16 +1,38 @@
 .wrapper {
-  max-width: 80%;
   margin: 0 auto;
+  padding: 20px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
 .text {
-  flex-basis: 60%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  text-align: left;
+}
+
+@media (min-width: 576px) {
+  .wrapper {
+    padding: 30px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1200px) {
+  .wrapper {
+    max-width: 80%;
+    padding: 50px;
+  }
+  .text {
+    flex-basis: 60%;
+  }
+}
+
+.list {
+  list-style-position: inside;
 }
 
 .title {

@@ -18,6 +18,7 @@ const authReducer = combineReducers({
   user: authSlice.user.reducer,
   error: authSlice.error.reducer,
   uid: authSlice.uid.reducer,
+  loading: authSlice.loading.reducer,
 });
 
 const authPersistedReducer = persistReducer(authPersistConfig, authReducer);
